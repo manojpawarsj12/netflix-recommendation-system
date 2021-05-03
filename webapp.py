@@ -14,7 +14,7 @@ def get_recommendations_new(title):
     idx = indices[title]
     print(idx)
     # Get the pairwsie similarity scores of all movies with that movie
-    u = AnnoyIndex(68313, 'angular')
+    u = AnnoyIndex(68322, 'angular')
     u.load('annoy100.ann')  # super fast, will just mmap the file
     similar = u.get_nns_by_item(idx, 10)
     return netflix['title'].iloc[similar]
@@ -23,4 +23,4 @@ def get_recommendations_new(title):
 @app.get("/{title}")
 async def root(title):
     recommendations = get_recommendations_new(title)
-    return {"recommendations": recommendations}
+    return recommendations
